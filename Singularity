@@ -52,15 +52,15 @@ From: tin6150/r4envids
 	R programming language env in a container, with many packages from CRAN
 	Example run:
 	Pull and run via singularity-hub:
-	singularity pull --name R shub://tin6150/R4envids
+	singularity pull --name R shub://tin6150/DIOS_demonstration
 	./R
 	singularity exec R /usr/bin/Rscript -e 'library()'
-	singularity exec --bind  .:/mnt  myR  /usr/bin/Rscript  /mnt/helloWorld.R > output.txt
+	singularity exec --bind  .:/mnt  R  /usr/bin/Rscript  /mnt/helloWorld.R > output.txt
     Where helloWorld.R is in your current dir (on the host system)
 	See README.rst for additional details.
 	source:          https://github.com/tin6150/DIOS_demonstration # tin branch for now
 	docker hub:      https://hub.docker.com/repository/docker/tin6150/r4envids
-	singularity hub: https://singularity-hub.org/collections/
+	singularity hub: https://singularity-hub.org/collections/4713
 	//
     Example run with R Studio (with singularity image named as "R"):
 	PATH=.:${PATH} rstudio
