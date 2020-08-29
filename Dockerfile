@@ -2,6 +2,8 @@
 # and add specific library needed by projects by DIOS_demonstration/envids
 # local build should work, but it no longer has all the updates done 
 # podman build -t tin6150/r4envids -f Dockerfile .  | tee Dockerfile.monolithic.LOG
+# podman login docker.io
+# podman push tin6150/r4envids # had pre-created the repo in hub.docker.com
 
  
 # Troubleshooting:

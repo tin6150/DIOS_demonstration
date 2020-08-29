@@ -64,5 +64,9 @@ From: tin6150/r4envids
 	//
     Example run with R Studio (with singularity image named as "R"):
 	PATH=.:${PATH} rstudio
+	PATH=.:{$PATH} && R_HOME=. &&  rstudio
+	Neither work :-\ Get ERROR: R did not return any output when queried for directory location information; Unable to determine R home directory
+
+ 
 
 # vim: noexpandtab nosmarttab noautoindent nosmartindent tabstop=4 shiftwidth=4 paste formatoptions-=cro
