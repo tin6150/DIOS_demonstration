@@ -17,6 +17,11 @@ Rscript --quiet --no-readline --slave -e 'install.packages("rPref",			repos = "h
 Rscript --quiet --no-readline --slave -e 'install.packages("RColorBrewer",	repos = "http://cran.us.r-project.org")'
 
 
-# tin's addition
-Rscript --quiet --no-readline --slave -e 'install.packages(c("tidycensus", "rstudioapi", data.table", "tigris")     repos = "http://cran.us.r-project.org")'
 
+
+# tin's addition
+Rscript --quiet --no-readline --slave -e 'install.packages(c("tidycensus", "rstudioapi", "data.table", "tigris"), repos = "http://cran.us.r-project.org")'
+
+Rscript --quiet --no-readline --slave -e 'library()'   | sort | tee R_library_list.out
+
+# vim: noexpandtab nosmarttab noautoindent nosmartindent tabstop=4 shiftwidth=4 paste formatoptions-=cro

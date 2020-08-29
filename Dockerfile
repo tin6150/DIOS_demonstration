@@ -1,11 +1,13 @@
 # Dockerfile for creating R container 
 # and add specific library needed by projects by DIOS_demonstration/envids
 # local build should work, but it no longer has all the updates done 
-# docker build -t tin6150/r4envids -f Dockerfile .  | tee Dockerfile.monolithic.LOG
+# podman build -t tin6150/r4envids -f Dockerfile .  | tee Dockerfile.monolithic.LOG
 
-# rscript has its own set of fairly long install...
  
-#~~ Zink's system R is 3.4.4, library() | wc = 41
+# Troubleshooting:
+# podman run  -it --entrypoint=/bin/bash tin6150/r4envids
+#~~ Zink's system R is 3.4.4, library() | wc = 41, 92
+
 
 #FROM r-base:3.6.2
 FROM r-base:3.6.3
@@ -55,8 +57,7 @@ RUN echo ''  ;\
     date                                     | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo '' ;\
     # call install_Rlibs.sh rather than spell them out here.  docker may cache...
-    bash -x ./DIOS_demonstration/install_Rlibs.sh 
-
+    bash -x ./DIOS_demonstration/install_Rlibs.sh 2>&1     | tee install_Rlibs.LOG ;\
     Rscript --quiet --no-readline --slave -e 'library()'   | sort | tee R_library_list.out.txt  ;\
     ls /usr/local/lib/R/site-library                       | sort | tee R-site-lib-ls.out.txt   ;\
     dpkg --list                                            | sort | tee dpkg--list.txt          ;\
@@ -68,8 +69,8 @@ RUN echo ''  ;\
 RUN echo ''  ;\
     echo '==================================================================' ;\
     echo "Pork Barrel: GUI file manager"  |   tee -a _TOP_DIR_OF_CONTAINER_   ;\
-    date | tee -a      _TOP_DIR_OF_CONTAINER_                        ;\
     echo '==================================================================' ;\
+    date                                     | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo ''  ;\
     # there is some issue and xfe doesnt get installed :/    moving to create guiDesk container instead
     #-- apt-get install -y --quiet xfe ;\
@@ -79,7 +80,7 @@ RUN echo ''  ;\
 RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_  \
-  && echo  "Dockerfile 2020.0829 1045"  >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2020.0829 1145"  >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale"
 
 #- ENV TZ America/Los_Angeles  
