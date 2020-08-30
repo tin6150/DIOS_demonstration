@@ -31,14 +31,19 @@ RUN echo  ''  ;\
     apt-get update ;\
     # ubuntu:
     apt-get -y --quiet install git file wget gzip bash tcsh zsh less vim bc tmux screen xterm ;\
+    # tidyverse complain about missing libs, these helped (it is not a minimal set)
+    apt-get -y --quiet install units libudunits2-dev gdal-bin gdal-data libgdal-dev libgdal26  r-cran-rgdal  curl r-cran-rcurl libcurl4 libcurl4-openssl-dev openssl libssl-dev r-cran-httr libgeos-dev  r-cran-xml r-cran-xml2 libxml2 libxml2-dev  ;\
+    echo ''  ;\
 
     echo '==================================================================' ;\
     echo "install for rstudio GUI (Qt)"      | tee -a _TOP_DIR_OF_CONTAINER_  ;\
-    date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
     echo '==================================================================' ;\
+    date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
     #-- rstudio dont seems to exist in Debian bullseye/sid :/
     #-- apt-get --quiet install rstudio  ;\
     apt-get -y --quiet install r-cran-rstudioapi libqt5gui5 libqt5network5  libqt5webenginewidgets5 qterminal net-tools ;\
+    date | tee -a      _TOP_DIR_OF_CONTAINER_   ;\
+    echo ''  ;\
     apt-get -y --quiet install apt-file ;\
     apt-file update ;\
     mkdir -p Downloads &&  cd Downloads ;\
@@ -47,7 +52,9 @@ RUN echo  ''  ;\
     cd ..    ;\
     echo ""  
 
+
 COPY . /DIOS_demonstration
+## seems like everything after COPY isn't cached (which is good for auto build not staying stale)
 
 RUN echo ''  ;\
     cd   /   ;\
@@ -73,10 +80,6 @@ RUN echo ''  ;\
     echo "Pork Barrel: GUI file manager"  |   tee -a _TOP_DIR_OF_CONTAINER_   ;\
     echo '==================================================================' ;\
     date                                     | tee -a _TOP_DIR_OF_CONTAINER_  ;\
-    echo ''  ;\
-    # tidyverse complain about missing libs, these helped (it is not a minimal set)
-    apt-get -y --quiet install units libudunits2-dev gdal-bin gdal-data libgdal-dev libgdal26  r-cran-rgdal  curl r-cran-rcurl libcurl4 libcurl4-openssl-dev openssl libssl-dev r-cran-httr libgeos-dev  r-cran-xml r-cran-xml2 libxml2 libxml2-dev  ;\
-    date | tee -a      _TOP_DIR_OF_CONTAINER_   ;\
     echo ''  ;\
     # there is some issue and xfe doesnt get installed :/    moving to create guiDesk container instead
     apt-get install -y --quiet xfe ;\
