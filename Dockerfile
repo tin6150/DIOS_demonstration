@@ -1,7 +1,7 @@
 # Dockerfile for creating R container 
 # and add specific library needed by projects by DIOS_demonstration/envids
 # local build should work, but it no longer has all the updates done 
-# podman build -t tin6150/r4envids -f Dockerfile .  | tee Dockerfile.monolithic.LOG
+# podman build -t tin6150/r4envids -f Dockerfile .  | tee Dockerfile.monolithic.log
 # podman login docker.io
 # podman push tin6150/r4envids # had pre-created the repo in hub.docker.com
 
@@ -59,7 +59,7 @@ RUN echo ''  ;\
     date                                     | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo '' ;\
     # call install_Rlibs.sh rather than spell them out here.  docker may cache...
-    bash -x ./DIOS_demonstration/install_Rlibs.sh 2>&1     | tee install_Rlibs.LOG ;\
+    bash -x ./DIOS_demonstration/install_Rlibs.sh 2>&1     | tee install_Rlibs.log ;\
     Rscript --quiet --no-readline --slave -e 'library()'   | sort | tee R_library_list.out.txt  ;\
     ls /usr/local/lib/R/site-library                       | sort | tee R-site-lib-ls.out.txt   ;\
     dpkg --list                                            | sort | tee dpkg--list.txt          ;\
@@ -74,8 +74,12 @@ RUN echo ''  ;\
     echo '==================================================================' ;\
     date                                     | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo ''  ;\
+    # tidyverse complain about missing libs, these helped (it is not a minimal set)
+    apt-get -y --quiet install units libudunits2-dev gdal-bin gdal-data libgdal-dev libgdal26  r-cran-rgdal  curl r-cran-rcurl libcurl4 libcurl4-openssl-dev openssl libssl-dev r-cran-httr libgeos-dev  r-cran-xml r-cran-xml2 libxml2 libxml2-dev  ;\
+    date | tee -a      _TOP_DIR_OF_CONTAINER_   ;\
+    echo ''  ;\
     # there is some issue and xfe doesnt get installed :/    moving to create guiDesk container instead
-    #-- apt-get install -y --quiet xfe ;\
+    apt-get install -y --quiet xfe ;\
     date | tee -a      _TOP_DIR_OF_CONTAINER_   ;\
     echo ""
 

@@ -4,9 +4,8 @@ From: tin6150/r4envids
 
 # Singularity def, wrap around docker tin6150/r4envids (DIOS_demonstration)
 
-# manual build cmd (singularity 3.2): 
-# sudo SINGULARITY_TMPDIR=/global/scratch/tin/tmp singularity build --sandbox ./r4envids.sif Singularity 2>&1  | tee singularity_build.LOG
-# sudo SINGULARITY_TMPDIR=/dev/shm singularity build --sandbox ./r4envids.sif Singularity 2>&1  | tee singularity_build.LOG
+# manual build cmd (singularity 3.6.1): 
+# sudo SINGULARITY_TMPDIR=/tmp  singularity build --sandbox ./r4envids.sif Singularity 2>&1  | tee singularity_build.log
 #
 # eg run cmd 
 # singularity exec -w r4envids.sif /bin/bash

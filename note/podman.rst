@@ -72,3 +72,21 @@ cannot use | or > with the above command.  docker likely doing something funky w
 	191
 
 
+
+singularity-hub problem though
+
+	Storing signatures
+	2020/08/29 23:22:55 info unpack layer: sha256:2dffa903b83a05e8f7056f2d8f378ea21af1cbc9a30f68bb9f93f103520963cb
+	[31mFATAL: [0m While performing build: packer failed to pack: while unpacking tmpfs: error unpacking rootfs: unpack layer: read next entry: archive/tar: invalid tar header   **<<**
+	ERROR Build error. See above for details
+
+
+
+So, actually end up doing a hub.docker.com cloud build based on the Dockerfile.
+(sudo docker build -t tin6150/r4envids -f Dockerfile .  | tee Dockerfile.monolithic.LOG on bofh completed without error)
+
+doing singularity build.
+
+Note that Zink (Mint) has R 3.4.4 and many of the required packages, like cowplot, don't install in this old R.
+May have to find way to install archived packages, or use this containerized R, which seems to be 4.0.2 !
+
