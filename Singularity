@@ -1,14 +1,30 @@
 Bootstrap: docker
 From: tin6150/r4envids
 
+# This is a Singularity def for DIOS demonstration 
 
-# Singularity def, wrap around docker tin6150/r4envids (DIOS_demonstration)
+# Example run for the DIOS demonstration using Singularity Container 
+# singularity pull shub://tin6150/DIOS_demonstration
+# singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  /DIOS_demonstration/code/DIOS_demonstration.R  2>&1 | tee output.log
 
+
+#	Advance usage or future tweak of this container:
+#	Alternate example run:
+# 	Pull and run via singularity-hub:
+#	singularity pull --name R shub://tin6150/DIOS_demonstration
+#	./R
+#	singularity exec R /usr/bin/Rscript -e 'library()'
+#	singularity exec --bind  .:/mnt  R  /usr/bin/Rscript  /mnt/helloWorld.R > output.txt
+#   Where helloWorld.R is in your current dir (on the host system)
+
+#	LINKS
+#	git repo:        https://github.com/tin6150/DIOS_demonstration # tin branch for now
+#	docker hub:      https://hub.docker.com/repository/docker/tin6150/r4envids
+#	singularity hub: https://singularity-hub.org/collections/4713
+
+ 
 # manual build cmd (singularity 3.6.1): 
 # sudo SINGULARITY_TMPDIR=/tmp  singularity build --sandbox ./r4envids.sif Singularity 2>&1  | tee singularity_build.log
-#
-# eg run cmd 
-# singularity exec -w r4envids.sif /bin/bash
 
 
 %post
@@ -46,26 +62,11 @@ From: tin6150/r4envids
 	R
 
 	
-
+# `singularity run-help $CONTAINER_NAME` will show info below
 %help
-	R programming language env in a container, with many packages from CRAN
-	Example run:
-	Pull and run via singularity-hub:
-	singularity pull --name R shub://tin6150/DIOS_demonstration
-	./R
-	singularity exec R /usr/bin/Rscript -e 'library()'
-	singularity exec --bind  .:/mnt  R  /usr/bin/Rscript  /mnt/helloWorld.R > output.txt
-    Where helloWorld.R is in your current dir (on the host system)
-	See README.rst for additional details.
-	source:          https://github.com/tin6150/DIOS_demonstration # tin branch for now
-	docker hub:      https://hub.docker.com/repository/docker/tin6150/r4envids
-	singularity hub: https://singularity-hub.org/collections/4713
-	//
-    Example run with R Studio (with singularity image named as "R"):
-	PATH=.:${PATH} rstudio
-	PATH=.:{$PATH} && R_HOME=. &&  rstudio
-	Neither work :-\ Get ERROR: R did not return any output when queried for directory location information; Unable to determine R home directory
+	Example run for the DIOS demonstration using Singularity Container 
+	singularity pull shub://tin6150/DIOS_demonstration
+	singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  /DIOS_demonstration/code/DIOS_demonstration.R  2>&1 | tee output.log
 
- 
 
 # vim: noexpandtab nosmarttab noautoindent nosmartindent tabstop=4 shiftwidth=4 paste formatoptions-=cro
