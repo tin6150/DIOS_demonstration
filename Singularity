@@ -53,7 +53,7 @@ From: tin6150/r4envids
 	export TZ 
 
 %labels
-	BUILD = 2020_0829_1313
+	BUILD = 2020_0830_1018
 	MAINTAINER = tin_at_berkeley_edu
 	REFERENCES = "https://github.com/tin6150/r4"
 
