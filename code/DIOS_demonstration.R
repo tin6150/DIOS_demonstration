@@ -31,7 +31,7 @@ set.seed(123)
 #================== Parameters ======================
 # parameters for points
 n.total <- 100
-n.initial <- 30
+n.initial <- 30 
 
 # parameters for linear part
 beta0 <- 3 - log(100000)
