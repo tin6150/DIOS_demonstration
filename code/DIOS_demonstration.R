@@ -9,16 +9,16 @@
 #
 #################################################################################  
 
-library(ggplot2)
-library(raster)
-library(mvnfast)
-library(gstat)
-library(cowplot)
-library(geoR)
-library(foreach)
-library(doParallel)
-library(tidyverse)
-library(rPref)
+library(ggplot2)  
+library(raster)   
+library(mvnfast)    ## Fast Multivariate Normal and Student's t Methods
+library(gstat)      ## Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation
+library(cowplot)  
+library(geoR)       ## https://cran.r-project.org/web/packages/geoR/geoR.pdf
+library(foreach)    ## Provides Foreach Looping Construct
+library(doParallel) ## foreach parallel adapter https://cran.r-project.org/web/packages/doParallel/doParallel.pdf
+library(tidyverse)  ## Pandas
+library(rPref)      ## Database Preferences and Skyline Computation https://cran.r-project.org/web/packages/rPref/rPref.pdf
 library(RColorBrewer)
 
 
@@ -30,8 +30,12 @@ set.seed(123)
 #==========================================================
 #================== Parameters ======================
 # parameters for points
-n.total <- 100
-n.initial <- 30 
+##n.total <- 100
+##n.initial <- 30
+
+n.total   <- 100 # didnt work for 40, 74
+n.initial <- 30 #  didnt work for 6, 8
+
 
 # parameters for linear part
 beta0 <- 3 - log(100000)
@@ -46,7 +50,8 @@ Y.sigmad <- 0.1          # sigma_d
 sigma <- 0.2
 
 # number of realizations of the disease model to generate
-n.real <- 1000
+##n.real <- 1000
+n.real <- 400  # 100,400 didnt work  # 600 ok when n.total=100, n.initial=30, 400/60/30 fails. 600/60/30 fails.  400/100/30 seems ok.
 
 
 #=========== generate point locations ================
@@ -161,6 +166,9 @@ dev.off()
 coord.sampled.geodata <- as.geodata(coord.sampled, coords.col = 1:2, data.col = 5, covar.col = 4, covar.names = "Xvalue")
 
 initial.ml.1 <- likfit(coords = coord.sampled[, c("x","y")], data = coord.sampled$logYValue0.1, trend = trend.spatial(~Xvalue, coord.sampled.geodata), ini.cov.pars = c(1, 1), fix.nugget = FALSE, nugget = 1, cov.model = "exponential", lik.method = "ML")
+## likfit - Likelihood Based Parameter Estimation For Gaussian Random Fields
+## https://www.rdocumentation.org/packages/geoR/versions/1.8-1/topics/likfit
+
 
 # estimate parameters when rho = 0.3
 coord.sampled.geodata <- as.geodata(coord.sampled, coords.col = 1:2, data.col = 5, covar.col = 4, covar.names = "Xvalue")
@@ -183,7 +191,13 @@ coordinates(coord.sampled.sp) = ~ x+y
 coord.unsampled.sp <- coord.unsampled
 coordinates(coord.unsampled.sp) = ~ x+y
 
-krige0.1.sim <- krige(logYValue0.1 ~ Xvalue, coord.sampled.sp, coord.unsampled.sp, model = vgm(psill = (initial.ml.1$sigmasq)^2, model = "Exp", range = initial.ml.1$phi, nugget = (initial.ml.1$tausq)^2), nsim = n.real, nmax = 60, beta = c(initial.ml.1$beta[1],initial.ml.1$beta[2]))
+krige0.1.sim <- krige(logYValue0.1 ~ Xvalue, coord.sampled.sp, coord.unsampled.sp, 
+                      model = vgm(psill = (initial.ml.1$sigmasq)^2, 
+                                  model = "Exp", range = initial.ml.1$phi, 
+                                  nugget = (initial.ml.1$tausq)^2), 
+                      nsim = n.real,   ## dont work when set to 100...
+                      nmax = 60, 
+                      beta = c(initial.ml.1$beta[1],initial.ml.1$beta[2]))
 
 # rho = 0.3
 krige0.3.sim <- krige(logYValue0.3 ~ Xvalue, coord.sampled.sp, coord.unsampled.sp, model = vgm(psill = (initial.ml.3$sigmasq)^2, model = "Exp", range = initial.ml.3$phi, nugget = (initial.ml.3$tausq)^2), nsim = n.real, nmax = 60, beta = c(initial.ml.3$beta[1],initial.ml.3$beta[2]))

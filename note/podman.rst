@@ -90,3 +90,75 @@ doing singularity build.
 Note that Zink (Mint) has R 3.4.4 and many of the required packages, like cowplot, don't install in this old R.
 May have to find way to install archived packages, or use this containerized R, which seems to be 4.0.2 !
 
+~~~~
+
+even when pulling a docker-hub build, there are strange errors:
+
+	[tin@viagra8 DIOS_demonstration]$ docker pull tin6150/r4envids
+	Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+	Trying to pull registry.access.redhat.com/tin6150/r4envids...
+	  name unknown: Repo not found
+	Trying to pull registry.redhat.io/tin6150/r4envids...
+	  unable to retrieve auth token: invalid username/password: unauthorized: Please login to the Red Hat Registry using your Customer Portal credentials. Further instructions can be found here: https://access.redhat.com/RegistryAuthentication
+	Trying to pull docker.io/tin6150/r4envids...
+	Getting image source signatures
+	Copying blob bd3fedd8743f skipped: already exists
+	Copying blob 10f3fdbe572d skipped: already exists
+	Copying blob 2dffa903b83a skipped: already exists
+	Copying blob 663fe05835c5 skipped: already exists
+	Copying blob ff9b12da32ab skipped: already exists
+	Copying blob 7a88b43f1097 skipped: already exists
+	Copying blob d26a5fac2414 done
+	Copying blob 696e01b41083 done
+	Copying blob 562aa4f153dd done
+	Copying blob 9d2e3cc64ef0 done
+	Copying blob 237a99634096 done
+	Copying config 9b2733a516 done
+	Writing manifest to image destination
+	Storing signatures
+	9b2733a516d243dbec0d550ba30f75f1583d82c37dc9943a79f1cfacfa23942b
+	ERRO[0373] unable to close namespace: "close /proc/2901/ns/user: bad file descriptor"
+
+
+running:  seems fine.  typical warning messages as when using singularity or docker:
+
+	[tin@viagra8 DIOS_demonstration]$ docker run -it --entrypoint='/bin/bash' tin6150/r4envids
+	Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+	root@2d6db8d1e7d0:/# cd DIOS_demonstration/code
+	root@2d6db8d1e7d0:/DIOS_demonstration/code# ls
+	DIOS_demonstration_functions.R	DIOS_demonstration.R
+	root@2d6db8d1e7d0:/DIOS_demonstration/code# Rscript ./DIOS_demonstration.R 2>&1 | tee DIOS.podman.out
+	Loading required package: sp
+
+	********************************************************
+	Note: As of version 1.0.0, cowplot does not change the
+	  default ggplot2 theme anymore. To recover the previous
+	  behavior, execute:
+	  theme_set(theme_cowplot())
+	********************************************************
+
+	--------------------------------------------------------------
+	 Analysis of Geostatistical Data
+	 For an Introduction to geoR go to http://www.leg.ufpr.br/geoR
+	 geoR version 1.8-1 (built on 2020-02-08) is now loaded
+	--------------------------------------------------------------
+
+	Warning message:
+	no DISPLAY variable so Tk is not available
+	Loading required package: iterators
+	Loading required package: parallel
+	── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+	✔ tibble  3.0.1     ✔ dplyr   0.8.5
+	✔ tidyr   1.1.2     ✔ stringr 1.4.0
+	✔ readr   1.3.1     ✔ forcats 0.5.0
+	✔ purrr   0.3.4
+	[...]
+	likfit: end of numerical maximisation.
+	[using conditional Gaussian simulation]
+	[using conditional Gaussian simulation]
+	[using conditional Gaussian simulation]
+	[using conditional Gaussian simulation]
+
+
+
+

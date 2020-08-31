@@ -66,7 +66,6 @@ From: tin6150/r4envids
 %help
 	Example run for the DIOS demonstration using Singularity Container 
 	singularity pull shub://tin6150/DIOS_demonstration
-	singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  /DIOS_demonstration/code/DIOS_demonstration.R  2>&1 | tee output.log
-
+	singularity exec --bind .:/mnt DIOS_demonstration_latest.sif bash -c "cd /mnt/code && /usr/bin/Rscript  ./DIOS_demonstration.R"  2>&1 | tee output.log
 
 # vim: noexpandtab nosmarttab noautoindent nosmartindent tabstop=4 shiftwidth=4 paste formatoptions-=cro
