@@ -51,7 +51,7 @@ sigma <- 0.2
 
 # number of realizations of the disease model to generate
 ##n.real <- 1000
-n.real <- 400  # 100,400 didnt work  # 600 ok when n.total=100, n.initial=30, 400/60/30 fails. 600/60/30 fails.  400/100/30 seems ok.
+n.real <- 10  # 100,400 didnt work  # 600 ok when n.total=100, n.initial=30, 400/60/30 fails. 600/60/30 fails.  400/90/30 fails.  200/100/30 worked, ~3 hours.  100/100/30 ~2hr.  100/100/20 failed with error msg about incompatible size.  60/100/30 took ~90min.  20/100/30 ~63min.  10/100/30 ~53min  . 20/100/20 fails.
 
 
 #=========== generate point locations ================
