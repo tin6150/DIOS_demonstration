@@ -3,6 +3,7 @@
 # can be called by container builder (docker, singularity) or 
 # a user's desktop env
 
+TZ="America/Los_Angeles" date
 
 # do not place TAB between package name and repos, 
 # ie no TAB inside packages(...)
@@ -19,12 +20,20 @@ Rscript --quiet --no-readline --slave -e 'install.packages("tidyverse", repos = 
 Rscript --quiet --no-readline --slave -e 'install.packages("rPref", repos = "http://cran.us.r-project.org")'
 Rscript --quiet --no-readline --slave -e 'install.packages("RColorBrewer", repos = "http://cran.us.r-project.org")'
 
+# mlr3:
 Rscript --quiet --no-readline --slave -e 'install.packages("mlr3", repos = "http://cran.us.r-project.org")'
+
+# IRkernel, assume Jupyter Notebook already installed
+Rscript --quiet --no-readline --slave -e 'install.packages("IRkernel", repos = "http://cran.us.r-project.org")'
+Rscript --no-readline --slave -e "IRkernel::installspec(user = FALSE)" # add kernel spec to Jupyter
 
 # tin's addition
 Rscript --quiet --no-readline --slave -e 'install.packages(c("tidycensus", "rstudioapi", "data.table", "tigris"), repos = "http://cran.us.r-project.org")'
 
 Rscript --quiet --no-readline --slave -e 'library()'   | sort | tee R_library.out
 
+
+echo $?
+TZ="America/Los_Angeles" date
 
 # vim: noexpandtab nosmarttab noautoindent nosmartindent tabstop=4 shiftwidth=4 paste formatoptions-=cro

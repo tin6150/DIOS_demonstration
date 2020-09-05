@@ -33,6 +33,8 @@ RUN echo  ''  ;\
     apt-get -y --quiet install git file wget gzip bash tcsh zsh less vim bc tmux screen xterm ;\
     # tidyverse complain about missing libs, these helped (it is not a minimal set)
     apt-get -y --quiet install units libudunits2-dev gdal-bin gdal-data libgdal-dev libgdal26  r-cran-rgdal  curl r-cran-rcurl libcurl4 libcurl4-openssl-dev openssl libssl-dev r-cran-httr libgeos-dev  r-cran-xml r-cran-xml2 libxml2 libxml2-dev  ;\
+    # pre-req for anaconda (jupyter notebook server)
+    apt-get -y --quiet install apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 ;\
     echo ''  ;\
 
     echo '==================================================================' ;\
@@ -60,12 +62,15 @@ RUN echo ''  ;\
     cd   /   ;\
     echo '==================================================================' ;\
     echo '==================================================================' ;\
-    echo "installing packages cran packages" | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    echo "installing conda + cran packages"  | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo '==================================================================' ;\
     echo '==================================================================' ;\
     date                                     | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo '' ;\
-    # call install_Rlibs.sh rather than spell them out here.  docker may cache...
+    # call install_... scripts rather than spell them out here, more portable to diff container or physical machine install
+    bash -x ./DIOS_demonstration/install_jupyter.sh 2>&1   | tee install_jupyter.log ;\
+    date                                     | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    echo "installing cran packages"          | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     bash -x ./DIOS_demonstration/install_Rlibs.sh 2>&1     | tee install_Rlibs.log ;\
     Rscript --quiet --no-readline --slave -e 'library()'   | sort | tee R_library_list.out.txt  ;\
     ls /usr/local/lib/R/site-library                       | sort | tee R-site-lib-ls.out.txt   ;\
