@@ -33,6 +33,7 @@ set.seed(123)
 ##n.total <- 100
 ##n.initial <- 30
 
+# cant change these cuz a few loops coded for 1:70
 n.total   <- 100 # didnt work for 40, 74
 n.initial <- 30 #  didnt work for 6, 8
 
@@ -49,9 +50,10 @@ Y.sigmad <- 0.1          # sigma_d
 # parameters for the risk factor X
 sigma <- 0.2
 
+NumThread = 31 # cant do 128, error about socket # timing on 32 core no Logical Processor cascadelake 5218@2.3GHz: 62 => 3h7m. 32 -> 3h11m.  31 => 3h22m. 4 => 6hr. 
 # number of realizations of the disease model to generate
 ##n.real <- 1000
-n.real <- 10  # 100,400 didnt work  # 600 ok when n.total=100, n.initial=30, 400/60/30 fails. 600/60/30 fails.  400/90/30 fails.  200/100/30 worked, ~3 hours.  100/100/30 ~2hr.  100/100/20 failed with error msg about incompatible size.  60/100/30 took ~90min.  20/100/30 ~63min.  10/100/30 ~53min  . 20/100/20 fails.
+n.real <- 200  
 
 
 #=========== generate point locations ================
@@ -88,7 +90,8 @@ for(i in 1:length(Y.range))
 {
   set.seed(123)
   current.cov.sampled <- s.cov(sampled.dist, Y.sigmas, Y.range[i], Y.sigmad)
-  coord.sampled[paste("logYValue",Y.range[i], sep = "")] <- beta0 + beta1*coord.sampled$Xvalue + rmvn(n = 1, mu = rep(0, n.initial), sigma = current.cov.sampled, ncores = 7)[1,]
+  ##coord.sampled[paste("logYValue",Y.range[i], sep = "")] <- beta0 + beta1*coord.sampled$Xvalue + rmvn(n = 1, mu = rep(0, n.initial), sigma = current.cov.sampled, ncores = 7)[1,]
+  coord.sampled[paste("logYValue",Y.range[i], sep = "")] <- beta0 + beta1*coord.sampled$Xvalue + rmvn(n = 1, mu = rep(0, n.initial), sigma = current.cov.sampled, ncores = NumThread )[1,]
 }
 
 #========================= Figure 2 ==============================
@@ -245,7 +248,8 @@ for(i in 1:n.real)
 #=============== A. Evaluate objective function at alternative sites ========
 #======== rho = 0.1 =========
 # Took ~15 mins using 7 threads of Intel Core i7-7700 CPU
-cl <- makeCluster(detectCores()-1, outfile = "log.txt")
+cl <- makeCluster(detectCores()-1, outfile = "log.txt") ##
+cl <- makeCluster(NumThread, outfile = "log.txt") ##
 registerDoParallel(cl)
 # loop over all realizations
 OFV0.1 <- foreach(i = 1:n.real, .combine = "rbind", .packages = c("sp","gstat","geoR")) %dopar%
@@ -283,7 +287,8 @@ stopCluster(cl)
 
 #======== rho = 0.3 =============
 # Took ~15 mins using 7 threads of Intel Core i7-7700 CPU
-cl <- makeCluster(detectCores()-1, outfile = "log.txt")
+#cl <- makeCluster(detectCores()-1, outfile = "log.txt")
+cl <- makeCluster(NumThread, outfile = "log.txt") ##
 registerDoParallel(cl)
 OFV0.3 <- foreach(i = 1:n.real, .combine = "rbind", .packages = c("sp","gstat","geoR")) %dopar%
 {
@@ -321,7 +326,8 @@ stopCluster(cl)
 #========= B. evaluate objective function at 41*41 grids as in Figure 3 ========
 #======== rho = 0.1 =============
 # Took ~9.5 hrs mins using 7 threads of Intel Core i7-7700 CPU
-cl <- makeCluster(detectCores()-1, outfile = "log.txt")
+#cl <- makeCluster(detectCores()-1, outfile = "log.txt")
+cl <- makeCluster(NumThread, outfile = "log.txt") ##
 registerDoParallel(cl)
 OFV0.1.grid <- foreach(i = 1:n.real, .combine = "rbind", .packages = c("sp","gstat","geoR")) %dopar%   # loop over all realizations
 {
@@ -355,7 +361,8 @@ stopCluster(cl)
 
 #======== rho = 0.3 =============
 # Took ~9.5 hrs using 7 threads of Intel Core i7-7700 CPU
-cl <- makeCluster(detectCores()-1, outfile = "log.txt")
+##cl <- makeCluster(detectCores()-1, outfile = "log.txt")
+cl <- makeCluster(NumThread, outfile = "log.txt") ##
 registerDoParallel(cl)
 OFV0.3.grid <- foreach(i = 1:n.real, .combine = "rbind", .packages = c("sp","gstat","geoR")) %dopar%   # loop over all realizations
 {
