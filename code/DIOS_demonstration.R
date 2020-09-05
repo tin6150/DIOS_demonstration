@@ -35,6 +35,7 @@ set.seed(123)
 
 n.total   <- 100 # didnt work for 40, 74
 n.initial <- 30 #  didnt work for 6, 8
+# don't seems to be able to lower either n.total or n.initial, later code have hard dependencies on these values
 
 
 # parameters for linear part
@@ -51,8 +52,13 @@ sigma <- 0.2
 
 # number of realizations of the disease model to generate
 ##n.real <- 1000
-n.real <- 10  # 100,400 didnt work  # 600 ok when n.total=100, n.initial=30, 400/60/30 fails. 600/60/30 fails.  400/90/30 fails.  200/100/30 worked, ~3 hours.  100/100/30 ~2hr.  100/100/20 failed with error msg about incompatible size.  60/100/30 took ~90min.  20/100/30 ~63min.  10/100/30 ~53min  . 20/100/20 fails.
-
+n.real <- 10  
+# 32 core cascade lake 5218 2.3 GHz // 58 threads, but load avg peaked at ~9, mostly ~4.  (was actually hard coded to use 4)
+# 200/100/30 (n.real/n.total/n.initial) ~3 hours.  100/100/30 ~2hr 
+#  60/100/30 took ~90min.  
+#  20/100/30 ~63min.  
+#  10/100/30 ~53min  . 
+# 400/60/30 fails. 600/60/30 fails.  400/90/30 fails.  
 
 #=========== generate point locations ================
 coord <- data.frame(x = runif(n.total), y = runif(n.total), sampled = 0) # generate n.total random points in the unit grid
