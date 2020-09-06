@@ -107,9 +107,15 @@ OBJ2 <- function(observed, candidate, disease.d, initial.ml){
 #' @param T.thres   stopping temperature
 SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1", disease.d.set, obj.fun, initial.ml, neigh.fun, T0, alpha, T.thres = 1e-6)
 {
+	print("**==** Starting SimAnneal from DIOS_demonstration_function.R") ##
+	system('date; uptime; pwd') ##
   # ncores <- as.numeric(Sys.getenv('SLURM_CPUS_ON_NODE'))
-  ncores = detectCores()-7
-  
+  ##ncores = detectCores()-7  ## why reduce core by 7??
+  ##ncores = ( 2 * detectCores() ) - 1  ## hmm... Error in unserialize(node$con) : error reading from connection
+  ncores = ( 1 * detectCores() ) - 1    ## NOT double threads per core
+  cat( "**==** detectCores():", detectCores(), "ncores set to:", ncores ) ##
+
+
   criterion.result <- array(NA, ceiling(log(T.thres/T0, base = alpha)))
   
   criterion.i = 1
@@ -144,8 +150,11 @@ SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1"
   
   BestCost <- Inf
   
+	print("**==** SimAnneal from DIOS_demonstration_function.R about to makeCluster") ##
+	system('date; uptime; pwd') ##
   
-  cl <- makeCluster(ncores, outfile = "log3.txt")
+  ##cl <- makeCluster(ncores, outfile = "log3.txt")
+  cl <- makeCluster(ncores, outfile="log3.simAnneal.txt")
   registerDoParallel(cl)
   while(T > T.thres){
     # propose a new design
@@ -184,12 +193,16 @@ SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1"
 
     T <- T*alpha      # update T
     
-    print(paste("T = ", round(T, 6), "; BestID:", paste(BestID, collapse = " "), "; BestCost:", round(BestCost, 6), "; CurrentCost:", round(curCost, 6), sep = ""))
+    ## next print generate lots of output, skipping them
+    ##print(paste("T = ", round(T, 6), "; BestID:", paste(BestID, collapse = " "), "; BestCost:", round(BestCost, 6), "; CurrentCost:", round(curCost, 6), sep = ""))
     
     criterion.result[criterion.i] = curCost
     criterion.i  = criterion.i  + 1
   }
   
+	cat( "**==** SimAnneal about to stopCluster" )  ##
+	system('date; uptime; pwd') ##
+
   stopCluster(cl)
   
   c(BestID = paste(BestID,collapse = ","), BestVar = BestCost, criterion.result = paste(criterion.result, collapse = ","))
