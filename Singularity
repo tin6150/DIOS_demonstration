@@ -53,7 +53,7 @@ From: tin6150/r4envids
 	export TZ 
 
 %labels
-	BUILD = 2020_0909_1338_mlr3_jupyter
+	BUILD = 2020_0906_1205_mlr3_jupyter_IRkernel
 	MAINTAINER = tin_at_berkeley_edu
 	REFERENCES = "https://github.com/tin6150/r4"
 

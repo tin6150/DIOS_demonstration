@@ -95,7 +95,7 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_  \
   && echo  "Dockerfile 2020.0830.1031 mlr3"  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2020.0905.1338 jupyter"  >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2020.0906.1205 jupyter IRkernel"  >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale"
 
 #- ENV TZ America/Los_Angeles  
