@@ -5,6 +5,9 @@
 
 TZ="America/Los_Angeles" date
 
+source /etc/bashrc
+# needed to get /opt/conda/bin into path, later on add IRkernel to jupyter
+
 # do not place TAB between package name and repos, 
 # ie no TAB inside packages(...)
 # when this is executed as bash script the tab is passed verbatim and Rscript can't handle it.  extra space padding is ok.
