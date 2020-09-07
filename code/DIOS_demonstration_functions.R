@@ -107,13 +107,16 @@ OBJ2 <- function(observed, candidate, disease.d, initial.ml){
 #' @param T.thres   stopping temperature
 SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1", disease.d.set, obj.fun, initial.ml, neigh.fun, T0, alpha, T.thres = 1e-6)
 {
-	print("**==** Starting SimAnneal from DIOS_demonstration_function.R") ##
-	system('date; uptime; pwd') ##
+	print("**==** Starting SimAnneal from DIOS_demonstration_function.R") ##  
+	print( system('date; uptime; hostname', intern=TRUE) ) ## system() cmd send output to console, not jupyter notebook, unless add the intern=TRUE clause.  and since it is sourced, hopefully print() wrap get it output to jupyter notebook.
+	cat( format(Sys.time(),usetz = TRUE), "\n") ##
+
   # ncores <- as.numeric(Sys.getenv('SLURM_CPUS_ON_NODE'))
   ##ncores = detectCores()-7  ## why reduce core by 7??
   ##ncores = ( 2 * detectCores() ) - 1  ## hmm... Error in unserialize(node$con) : error reading from connection
-  ncores = ( 1 * detectCores() ) - 1    ## NOT double threads per core
-  cat( "**==** detectCores():", detectCores(), "ncores set to:", ncores ) ##
+  ncores = ( 1 * detectCores() ) - 1    ## DONT double threads per core.  see low load avg.
+  ##ncores = 1                          ## single core is significantly slower, so parallelization helps, albeit seemingly not scaling well.
+  cat( "**==** detectCores():", detectCores(), "ncores set to:", ncores, "\n" ) ##
 
 
   criterion.result <- array(NA, ceiling(log(T.thres/T0, base = alpha)))
@@ -151,7 +154,7 @@ SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1"
   BestCost <- Inf
   
 	print("**==** SimAnneal from DIOS_demonstration_function.R about to makeCluster") ##
-	system('date; uptime; pwd') ##
+	print( system('date; uptime; hostname', intern=TRUE) ) ## system() cmd send output to console, not jupyter notebook, unless add the intern=TRUE clause
   
   ##cl <- makeCluster(ncores, outfile = "log3.txt")
   cl <- makeCluster(ncores, outfile="log3.simAnneal.txt")
@@ -201,7 +204,7 @@ SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1"
   }
   
 	cat( "**==** SimAnneal about to stopCluster" )  ##
-	system('date; uptime; pwd') ##
+	print( system('date; uptime; hostname', intern=TRUE) ) ## system() cmd send output to console, not jupyter notebook, unless add the intern=TRUE clause
 
   stopCluster(cl)
   
