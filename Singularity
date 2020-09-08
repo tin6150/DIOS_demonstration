@@ -31,7 +31,7 @@ From: tin6150/r4envids
 	touch "_ROOT_DIR_OF_CONTAINER_" ## also is "_CURRENT_DIR_CONTAINER_BUILD" 
 	date     >> _ROOT_DIR_OF_CONTAINER_
 	hostname >> _ROOT_DIR_OF_CONTAINER_
-	echo "Singularity def 2020.0906.1706 uptime" >> _ROOT_DIR_OF_CONTAINER_
+	echo "Singularity def 2020.0910.1437 procps" >> _ROOT_DIR_OF_CONTAINER_
 
 	# docker run as root, but singularity may run as user, so adding these hacks here
 	mkdir -p /global/scratch/tin
@@ -53,7 +53,7 @@ From: tin6150/r4envids
 	export TZ 
 
 %labels
-	BUILD = 2020_0906_1706_mlr3_jupyter_IRkernel_uptime
+	BUILD = 2020_0910_1437_mlr3_jupyter_IRkernel_procps
 	MAINTAINER = tin_at_berkeley_edu
 	REFERENCES = "https://github.com/tin6150/r4"
 
