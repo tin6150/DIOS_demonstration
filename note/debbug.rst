@@ -6,6 +6,8 @@ Docker
 docker pull tin6150/r4envids 
 docker run -it --entrypoint='/bin/bash' tin6150/r4envids 
 
+docker exec -it bash agitated_hermann
+
 # R 
 # setwd('DIOS_demonstration/code')
 
