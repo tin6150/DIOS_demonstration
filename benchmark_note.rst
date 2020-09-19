@@ -18,7 +18,7 @@ n0173.savio3
 eventually, edit in jupyter, convert, run
 
 singularity exec DIOS_demonstration_latest.sif /opt/conda/bin/jupyter nbconvert --to python jupyter_R_DIOS_demo.ipynb
-singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.log
+singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.n170.0919.log
 
 
 for now, just test on jupyter as doesn't take too too long.  learn the construct first...
@@ -41,3 +41,5 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 ## hma    ~25min per chain. Total 82m    --  30/10//3 n.total/n.initial//n.real [31 thread]
 ## hma    ~30min per chain. Total 100m   --  30/10//3 n.total/n.initial//n.real [63 thread]
 
+
+## n170 30/10/3 
