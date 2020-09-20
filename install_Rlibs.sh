@@ -32,7 +32,7 @@ Rscript --no-readline --slave -e "IRkernel::installspec(user = FALSE)" # add ker
 
 # tin's addition
 Rscript --quiet --no-readline --slave -e 'install.packages(c("tidycensus", "rstudioapi", "data.table", "tigris"), repos = "http://cran.us.r-project.org")'
-Rscript --quiet --no-readline --slave -e 'install.packages(c("snow"), repos = "http://cran.us.r-project.org")'
+Rscript --quiet --no-readline --slave -e 'install.packages(c("snow", "doSNOW"), repos = "http://cran.us.r-project.org")'
 ## https://cran.r-project.org/web/packages/snow/snow.pdf
 
 Rscript --quiet --no-readline --slave -e 'library()'   | sort | tee R_library.out
