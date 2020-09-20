@@ -40,6 +40,4 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 ## hma    ~23min per chain. Total 73m    --  30/10//3 n.total/n.initial//n.real [15,16,17 thread for SimAnneal]
 ## hma    ~25min per chain. Total 82m    --  30/10//3 n.total/n.initial//n.real [31 thread]
 ## hma    ~30min per chain. Total 100m   --  30/10//3 n.total/n.initial//n.real [63 thread]
-
-
-## n170 30/10/3 
+## n170   ~11min per chain. Total 38m    --  30/10//3 n.total/n.initial//n.real [39 thread]
