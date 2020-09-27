@@ -97,6 +97,7 @@ RUN  cd / \
   && echo  "Dockerfile 2020.0830.1031 mlr3"  >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Dockerfile 2020.0910.1437 jupyter IRkernel procps"  >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Dockerfile 2020.0919.1701 R::snow "  >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2020.0927      Hmisc   "  >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale"
 
 #- ENV TZ America/Los_Angeles  

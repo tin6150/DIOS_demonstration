@@ -35,6 +35,10 @@ Rscript --quiet --no-readline --slave -e 'install.packages(c("tidycensus", "rstu
 Rscript --quiet --no-readline --slave -e 'install.packages(c("snow", "doSNOW"), repos = "http://cran.us.r-project.org")'
 ## https://cran.r-project.org/web/packages/snow/snow.pdf
 
+Rscript --quiet --no-readline --slave -e 'install.packages(c("psych","Hmisc","tableone"), repos = "http://cran.us.r-project.org")'
+## ggpairs was not avail for this version of R
+## https://dabblingwithdata.wordpress.com/2018/01/02/my-favourite-r-package-for-summarising-data/  # but significant ads
+
 Rscript --quiet --no-readline --slave -e 'library()'   | sort | tee R_library.out
 
 
