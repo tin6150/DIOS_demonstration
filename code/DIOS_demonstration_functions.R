@@ -114,10 +114,11 @@ SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1"
   # ncores <- as.numeric(Sys.getenv('SLURM_CPUS_ON_NODE'))
   ##ncores = detectCores()-7  ## why reduce core by 7??
   ##ncores = ( 2 * detectCores() ) - 1  ## hmm... Error in unserialize(node$con) : error reading from connection
-  ncores = ( 1 * detectCores() ) - 1    ## DONT double threads per core.  see low load avg.
   ##ncores = 1                          ## single core is significantly slower, so parallelization helps, albeit seemingly not scaling well.
+  ##ncores = ( detectCores()/2 )  ##  halfing the cores...
+  ##ncores = 12       ## match number of memory channels ...^M
+  ncores = ( 1 * detectCores() ) - 1    ## DONT double threads per core.  see low load avg.   actual core -1 is the best practice
   cat( "**==** detectCores():", detectCores(), "ncores set to:", ncores, "\n" ) ##
-
 
   criterion.result <- array(NA, ceiling(log(T.thres/T0, base = alpha)))
   
