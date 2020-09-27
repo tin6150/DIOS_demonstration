@@ -54,7 +54,7 @@ RUN echo  ''  ;\
     cd ..    ;\
     echo ""  
 
-
+# hub.docker autobuilder specify branch "tin" for now so it has the right content.
 COPY . /DIOS_demonstration
 ## seems like everything after COPY isn't cached (which is good for auto build not staying stale)
 

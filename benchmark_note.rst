@@ -36,6 +36,7 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 
 ## bof     20min per chain. Total 52m    --  30/10//3 n.total/n.initial//n.real [15 thread]
 ## bgo    ~20min per chain. Total 65m    --  30/10//3 n.total/n.initial//n.real [31 thread]
+## bof    ~15min per 3 chain. mcparalle  --  30/10//3 n.total/n.initial//n.real   //++ fix data combining...
 ## hma    ~21min per chain. Total 71m    --  30/10//3 n.total/n.initial//n.real [12 thread for SimAnneal, matching num of memory channel.  Ram use 3-8 GB]
 ## hma    ~23min per chain. Total 73m    --  30/10//3 n.total/n.initial//n.real [15,16,17 thread for SimAnneal]
 ## hma    ~25min per chain. Total 82m    --  30/10//3 n.total/n.initial//n.real [31 thread]
