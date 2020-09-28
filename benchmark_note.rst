@@ -18,7 +18,9 @@ n0173.savio3
 eventually, edit in jupyter, convert, run
 
 singularity exec DIOS_demonstration_latest.sif /opt/conda/bin/jupyter nbconvert --to python jupyter_R_DIOS_demo.ipynb
-singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.n170.0919.log
+mkdir/cd RUN_...
+date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.n170.0927.log 2>&1 ; echo $?; date
+date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo_par.py  2>&1 | tee output.n171par.0927.log 2>&1 ; echo $?; date
 
 
 for now, just test on jupyter as doesn't take too too long.  learn the construct first...
@@ -42,3 +44,9 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 ## hma    ~25min per chain. Total 82m    --  30/10//3 n.total/n.initial//n.real [31 thread]
 ## hma    ~30min per chain. Total 100m   --  30/10//3 n.total/n.initial//n.real [63 thread]
 ## n170   ~11min per chain. Total 38m    --  30/10//3 n.total/n.initial//n.real [39 thread]
+
+
+## n171par 100/30//1000 part 1 before SimAnneal took 2h6m.  simAnneal using mcparallel took 2h53m. total = 5h06m.  pdf was horrible looking, not sure why yet.
+## n170    100/30//1000 
+
+
