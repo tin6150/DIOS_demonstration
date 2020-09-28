@@ -22,6 +22,7 @@ mkdir/cd RUN_...
 date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.n170.0927.log 2>&1 ; echo $?; date
 date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo_par.py  2>&1 | tee output.n171par.0927.log 2>&1 ; echo $?; date
 
+date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./DIOS_demonstration_par.R  2>&1 | tee output.n171DIOSpar.0927.log 2>&1 ; echo $?; date
 
 for now, just test on jupyter as doesn't take too too long.  learn the construct first...
 
@@ -47,6 +48,6 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 
 
 ## n171par 100/30//1000 part 1 before SimAnneal took 2h6m.  simAnneal using mcparallel took 2h53m. total = 5h06m.  pdf was horrible looking, not sure why yet.
-## n170    100/30//1000 
+## n170    100/30//1000  part 1 5h50m. SimAnneal start 21:42...
 
-
+## n1711par alt (ie DIOS_demonstration_par.R ) 100/30//1000    start 9/27 22:02  total 7h5m part 1 2h27m, simAnneal  ~4h30m, simAnneal used NumCore/3 cpu for each part.

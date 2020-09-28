@@ -117,8 +117,8 @@ SimAnneal <- function(existing.sites,  alt.sites, n.choose, rho = "logYValue0.1"
   ##ncores = 1                          ## single core is significantly slower, so parallelization helps, albeit seemingly not scaling well.
   ##ncores = ( detectCores()/2 )  ##  halfing the cores...
   ##ncores = 12       ## match number of memory channels ...^M
-  ncores = ( 1 * detectCores() ) - 1    ## DONT double threads per core.  see low load avg.   actual core -1 is the best practice
-	##ncores = as.integer( detectCores() / 3 ) ## _par use only
+  ##++ncores = ( 1 * detectCores() ) - 1    ## DONT double threads per core.  see low load avg.   actual core -1 is the best practice
+	ncores = as.integer( detectCores() / 3 ) ## _par use only
 
   cat( "**==** detectCores():", detectCores(), "ncores set to:", ncores, "\n" ) ##
 
