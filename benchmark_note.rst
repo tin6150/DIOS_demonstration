@@ -19,12 +19,15 @@ eventually, edit in jupyter, convert, run
 
 singularity exec DIOS_demonstration_latest.sif /opt/conda/bin/jupyter nbconvert --to python jupyter_R_DIOS_demo.ipynb
 mkdir/cd RUN_...
-date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.n170.0927.log 2>&1 ; echo $?; date
-date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo_par.py  2>&1 | tee output.n171par.0927.log 2>&1 ; echo $?; date
+date; singularity exec ../DIOS_demonstration_IRkernel_fbb4d4a.sif  /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.traditional.n170.0928.log 2>&1 ; echo $?; date
+date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo_par.py  2>&1 | tee output.n171par.0928_1010.log 2>&1 ; echo $?; date
 
-date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./DIOS_demonstration_par.R  2>&1 | tee output.n171DIOSpar.0927.log 2>&1 ; echo $?; date
+date; singularity exec ../DIOS_demonstration_procps_047e4cb.sif  /usr/bin/Rscript  ./DIOS_demonstration.R  2>&1 | tee output.DIOStraditional.n170.0929.log 2>&1 ; echo $?; date
+
+date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./DIOS_demonstration_par.R  2>&1 | tee output.n171DIOSpar.0928.log 2>&1 ; echo $?; date 
 
 for now, just test on jupyter as doesn't take too too long.  learn the construct first...
+
 
 jupyter instances 2020-0918: 
 http://hima.lbl.gov:5999/  # some test, no need to commit
@@ -48,6 +51,9 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 
 
 ## n171par 100/30//1000 part 1 before SimAnneal took 2h6m.  simAnneal using mcparallel took 2h53m. total = 5h06m.  pdf was horrible looking, not sure why yet.
-## n170    100/30//1000  part 1 5h50m. SimAnneal start 21:42...
+## ln0     100/30//1000  part 1 5h50m. SimAnneal start 21:42... end 1146 so ~14 hours.  total 19h50m.  on a 4core machine.
+## n170trad _0928_1738 for real this time 100/30//1000  part 1 ~2h30m, simAnneal 8h21m (8:26-4:47) total: 10h51m [39thread] 
+
+
 
 ## n1711par alt (ie DIOS_demonstration_par.R ) 100/30//1000    start 9/27 22:02  total 7h5m part 1 2h27m, simAnneal  ~4h30m, simAnneal used NumCore/3 cpu for each part.
