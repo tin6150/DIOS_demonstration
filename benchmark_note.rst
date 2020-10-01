@@ -20,7 +20,8 @@ eventually, edit in jupyter, convert, run
 singularity exec DIOS_demonstration_latest.sif /opt/conda/bin/jupyter nbconvert --to python jupyter_R_DIOS_demo.ipynb
 mkdir/cd RUN_...
 date; singularity exec ../DIOS_demonstration_IRkernel_fbb4d4a.sif  /usr/bin/Rscript  ./jupyter_R_DIOS_demo.py  2>&1 | tee output.traditional.n170.0928.log 2>&1 ; echo $?; date
-date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo_par.py  2>&1 | tee output.n171par.0928_1010.log 2>&1 ; echo $?; date
+
+date; singularity exec DIOS_demonstration_latest.sif /usr/bin/Rscript  ./jupyter_R_DIOS_demo_par.py  2>&1 | tee output.n171par.0929_2345.log 2>&1 ; echo $?; date
 
 date; singularity exec ../DIOS_demonstration_procps_047e4cb.sif  /usr/bin/Rscript  ./DIOS_demonstration.R  2>&1 | tee output.DIOStraditional.n170.0929.log 2>&1 ; echo $?; date
 
@@ -57,3 +58,7 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 
 
 ## n1711par alt (ie DIOS_demonstration_par.R ) 100/30//1000    start 9/27 22:02  total 7h5m part 1 2h27m, simAnneal  ~4h30m, simAnneal used NumCore/3 cpu for each part.
+
+## n170 (trad) 100/30//1000 (DIOS_demonstration.R)   part 1 = 3h, simAnneal 1 chain=2h46m, 3 chains=8h23m, total 11h23m ncore=39 load avg 19.45.  so pretty much 1 chain time could be parallelized to finish 3 chains
+## n171par 100/30//1000 (jupyter_R_DIOS_demo_par.py) part 1 = 2h30m, simAnneal = 2h50m, total 5h20m. NumCore=39, oversubscribed, but load avg peaked at 53 (40 core machine), so it saves time.  -- RUN_n171par_0929_2345
+
