@@ -53,9 +53,9 @@ sigma <- 0.2
 
 NumThread = 31 # cant do 128, error about socket # timing on 32 core no Logical Processor cascadelake 5218@2.3GHz: 62 => 3h7m. 32 -> 3h11m.  31 => 3h22m. 4 => 6hr. 
 # number of realizations of the disease model to generate
-##n.real <- 1000
+n.real <- 1000
 #~n.real <- 200  
-n.real <- 10  
+##n.real <- 10  
 # 32 core cascade lake 5218 2.3 GHz // 58 threads, but load avg peaked at ~9, mostly ~4.  (was actually hard coded to use 4)
 # 200/100/30 (n.real/n.total/n.initial) ~3 hours.  100/100/30 ~2hr 
 #  60/100/30 took ~90min.  
