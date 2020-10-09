@@ -62,3 +62,4 @@ http://bofh.lbl.gov:5999/  # should commit this one, as have some benchmark info
 ## n170 (trad) 100/30//1000 (DIOS_demonstration.R)   part 1 = 3h, simAnneal 1 chain=2h46m, 3 chains=8h23m, total 11h23m ncore=39 load avg 19.45.  so pretty much 1 chain time could be parallelized to finish 3 chains
 ## n171par 100/30//1000 (jupyter_R_DIOS_demo_par.py) part 1 = 2h30m, simAnneal = 2h50m, total 5h20m. NumCore=39, oversubscribed, but load avg peaked at 53 (40 core machine), so it saves time.  -- RUN_n171par_0929_2345
 
+## n170 (factory) 100/30//1000 (DIOS_demonstration.R) total 8h # RUN_n171factory_0930  # graph looks like my par version.

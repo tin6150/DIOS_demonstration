@@ -14,6 +14,7 @@
 #FROM r-base:3.6.2
 FROM r-base:3.6.3
 MAINTAINER Tin (at) berkeley.edu
+LABEL org.opencontainers.image.source https://github.com/tin6150/DIOS_demonstration
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=vt100
